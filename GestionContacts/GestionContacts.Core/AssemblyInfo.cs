@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("GestionContacts.UnitTests")]
+[assembly: InternalsVisibleTo("GestionContacts.IntegrationTests")]
 
 // Dans les projets de type SDK comme celui-là, plusieurs attributs d'assembly définis
 // historiquement dans ce fichier sont maintenant automatiquement ajoutés pendant

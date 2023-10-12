@@ -16,4 +16,9 @@
     <PackageReference Include="coverlet.collector" Version="3.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GestionContacts.Core\GestionContacts.Core.csproj" />
+    <ProjectReference Include="..\GestionContacts.Infrastructure\GestionContacts.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
