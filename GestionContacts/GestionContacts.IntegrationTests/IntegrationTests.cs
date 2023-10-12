@@ -1,51 +1,48 @@
 using GestionContacts.Core;
 using GestionContacts.Infrastructure;
+using System.Text.Json;
 
 namespace GestionContacts.IntegrationTests
 {
     [TestClass]
     public class UnitTest1
     {
+        private static string jsonFilePath = @"C:\Users\lebuh\Desktop\_db.json";
 
-        private readonly InfrastructureService _infrastructureService;
+        private readonly JsonContactRepository _jsonContactRepository = new JsonContactRepository(jsonFilePath);
 
 
         [TestMethod]
-        public void WhenGetAllContacts_ShouldNewContactExistInJsonRepository()
+        public void WhenGetAllContacts_ShouldGet1Contact()
         {
-            _infrastructureService.GetAll();
+            _jsonContactRepository.GetAll();
 
-            Assert.AreEqual(0, _infrastructureService.GetAll().Count);
-        }
-
-   /*     [TestMethod]
-        public void WhenGetContactWithId1_ShouldGetContactWithFirstNameDidier()
-        {
-            Contact? contact = _infrastructureService.GetContact(1);
-
-            Assert.AreEqual("Didier", contact.FirstName);
+            Assert.AreEqual(1, _jsonContactRepository.GetAll().Count);
         }
 
         [TestMethod]
-        public void WhenAddNewContact_ShouldNewContactExistInJsonRepository() 
+        public void WhenGetContactById_ShouldGetContactFirstNameDorian()
         {
-            Contact newContact = new Contact(1, "Eloïse", "Fortin", 25, "Rennes");
+            Contact contact = _jsonContactRepository.GetContactById(1);
 
-            _infrastructureService.AddContact(newContact);
-
-            CollectionAssert.Contains(_infrastructureService.GetAll(), newContact);
-            Assert.AreEqual(1, _infrastructureService.GetAll().Count);
+            Assert.AreEqual("Dorian", contact.FirstName);
         }
 
         [TestMethod]
-        public void WhenRemoveContact_ShouldNewContactDoesntExistInJsonRepository()
+        public void WhenAddNewContact_ShouldNewContactExistInJsonRepository()
         {
-            Contact newContact = new Contact(1, "Eloïse", "Fortin", 25, "Rennes");
+            List<Contact> emptyContactsList = new List<Contact>();
+            string tempFilePath = Path.GetTempFileName() + ".json";
+            string jsonString = JsonSerializer.Serialize(emptyContactsList);
+            File.WriteAllText(tempFilePath, jsonString);
 
-            _infrastructureService.AddContact(newContact);
+            JsonContactRepository _tempJsonContactRepository = new JsonContactRepository(tempFilePath);
 
-            CollectionAssert.DoesNotContain(_infrastructureService.GetAll(), newContact);
-            Assert.AreEqual(0, _infrastructureService.GetAll().Count);
-        }*/
-    }
+            Contact newContact = new Contact(1, "Didier", "Costa", 24, "Rennes");
+            _tempJsonContactRepository.Add(newContact);
+
+            Assert.AreEqual(1, _tempJsonContactRepository.GetAll().Count);
+
+        }
+}
 }

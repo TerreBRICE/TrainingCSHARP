@@ -15,7 +15,7 @@ public class LocalContactsRepository: IContactRepository
     };
 
 
-    public List<Contact> GetAll()
+    public List<Contact>? GetAll()
     {
         return Contacts;
     }

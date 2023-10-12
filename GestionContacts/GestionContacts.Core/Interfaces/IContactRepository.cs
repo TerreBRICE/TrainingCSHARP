@@ -2,7 +2,7 @@
 {
     public interface IContactRepository
     {
-        List<Contact> GetAll();
+        List<Contact>? GetAll();
 
         Contact? GetContactById(int id);
         void Remove(int id);
