@@ -1,7 +1,12 @@
 ﻿namespace GestionContacts.Core.Interfaces
 {
-    interface IContactRepository
+    public interface IContactRepository
     {
         List<Contact> GetAll();
+
+        Contact? GetContactById(int id);
+        void Remove(int id);
+
+        void Add(Contact contact);
     }
 }

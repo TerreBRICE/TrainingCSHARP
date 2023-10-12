@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GestionContacts.Core\GestionContacts.Core.csproj" />
+    <ProjectReference Include="..\GestionContacts.Infrastructure\GestionContacts.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

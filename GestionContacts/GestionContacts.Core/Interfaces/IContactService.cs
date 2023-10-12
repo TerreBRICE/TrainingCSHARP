@@ -11,5 +11,9 @@ namespace GestionContacts.Core.Interfaces
         int CountTotal();
 
         int CountFromCity(string city);
+        int CountIsAdult();
+        Contact? ShowContactById(int id);
+        void RemoveContact(Contact contact);
+        void AddContact(Contact contact);
     }
 }
