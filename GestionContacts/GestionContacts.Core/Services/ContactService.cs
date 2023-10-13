@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GestionContacts.Core.Services;
 
-public class ContactService
+public class ContactService: IContactService
 {
 
     private readonly IContactRepository _contactRepository;
@@ -15,6 +15,11 @@ public class ContactService
     public ContactService(IContactRepository contactRepository)
     {
         _contactRepository = contactRepository;
+    }
+
+    public List<Contact>? GetAll()
+    {
+        return _contactRepository.GetAll();
     }
 
     public int CountTotal()
@@ -44,20 +49,24 @@ public class ContactService
         return count;
     }
 
-    public Contact? GetContactById(int id)
+    public Contact? GetContactById(string id)
     {
         Contact? item = _contactRepository.GetContactById(id);
         return item;
     }
 
-    public void RemoveContactById(int id)
-    {
-        _contactRepository.Remove(id);
-
-    }
-
-    public void AddContact(Contact contact)
+    public void Add(Contact contact)
     {
         _contactRepository.Add(contact);
+    }
+
+    public Contact? ShowContactById(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Remove(Contact contact)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -1,18 +1,39 @@
 ﻿using GestionContacts.Core;
+using GestionContacts.Core.Interfaces;
 using GestionContacts.Core.Services;
 using GestionContacts.Infrastructure;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 internal class Program
 {
 
-    private static string jsonFilePath = @"C:\Users\lebuh\Desktop\_db.json";
+
+    private static string jsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "_data.json");
     private static readonly JsonContactRepository _jsonContactRepository = new JsonContactRepository(jsonFilePath);
     private static readonly ContactService contactService = new ContactService(_jsonContactRepository);
 
     private static void Main(string[] args)
     {
 
-        Console.WriteLine("Hi, what do you want to do with your contacts ? ShowAll | Add | ShowOne");
+        //    var serviceProvider = new ServiceCollection()
+        //.AddLogging()
+        //.AddScoped<IContactService, ContactService>()
+        //.AddScoped<IContactRepository, JsonContactRepository>((_) => new JsonContactRepository(configuration["JsonRepository:filePath"]))
+        //.BuildServiceProvider();
+
+        //       configure console logging
+        //       serviceProvider
+        //           .GetService<ILoggerFactory>()
+        //            .AddConsole(LogLevel.Debug);
+
+        //var logger = serviceProvider.GetService<ILoggerFactory>()
+        //    .CreateLogger<Program>();
+        //logger.LogDebug("Starting application");
+
+        Console.WriteLine(jsonFilePath);
+        Console.WriteLine("Hi, what do you want to do with your contacts ? Show | Add ");
 
         var input = Console.ReadLine();
 
@@ -22,36 +43,12 @@ internal class Program
                 AddContact();
                 break;
 
-            case "ShowAll":
+            case "Show":
                 ShowAll();
                 break;
 
-            case "ShowOne":
-                Console.WriteLine("Id :");
-                int id;
-                while (!int.TryParse(Console.ReadLine(), out id))
-                {
-                    InvalidValue("Id");
-                    Console.Write("Id :");
-                }
-                ShowContactById(id);
-                break;
         }
     }
-
-    private static int AskIntValue(string question)
-    {
-        Console.WriteLine(question + " :");
-        int output;
-        while (!int.TryParse(Console.ReadLine(), out output))
-        {
-            InvalidValue(question);
-            Console.Write(question + " :");
-        }
-
-        return output;
-    }
-
 
     private static void AddContact()
     {
@@ -62,8 +59,8 @@ internal class Program
         var age = AskIntValue("Age");
         var city = AskStringValue("City");
 
-        Contact newContact = new Contact(_jsonContactRepository.GetAll().Count + 1, firstName, lastName, age, city);
-        contactService.AddContact(newContact);
+        Contact newContact = new Contact(firstName, lastName, age, city);
+        contactService.Add(newContact);
 
         Console.WriteLine("-----CREATION-------");
 
@@ -78,7 +75,9 @@ internal class Program
     private static void ShowAll()
     {
         Console.WriteLine("Showing all contacts ...");
-        List<Contact> contacts = _jsonContactRepository.GetAll();
+
+        List<Contact>? contacts = _jsonContactRepository.GetAll();
+
         int totalContacts = contactService.CountTotal();
 
         Console.WriteLine("---------  You Have " + totalContacts + " contacts  ---------");
@@ -91,26 +90,6 @@ internal class Program
             Console.WriteLine("--------------------");
         }
     }
-
-    private static void ShowContactById(int id)
-    {
-        Console.WriteLine("Showing contact with id = " + id);
-        Contact contact = contactService.GetContactById(id);
-
-        if (contact != null)
-        {
-            Console.WriteLine("Prénom => " + contact.FirstName);
-            Console.WriteLine("Nom => " + contact.LastName);
-            Console.WriteLine("Âge => " + contact.Age);
-            Console.WriteLine("Ville => " + contact.City);
-            Console.WriteLine("--------------------");
-        }
-        else
-        {
-            Console.WriteLine("Contact not found...");
-        }
-    }
-
 
 
     private static void InvalidValue(string value)
@@ -126,6 +105,19 @@ internal class Program
             InvalidValue(question);
             Console.Write(question + " :");
             output = Console.ReadLine();
+        }
+
+        return output;
+    }
+
+    private static int AskIntValue(string question)
+    {
+        Console.WriteLine(question + " :");
+        int output;
+        while (!int.TryParse(Console.ReadLine(), out output))
+        {
+            InvalidValue(question);
+            Console.Write(question + " :");
         }
 
         return output;

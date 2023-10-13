@@ -8,22 +8,23 @@ namespace GestionContacts.Infrastructure;
 
 public class JsonContactRepository : IContactRepository
 {
-    public string filePath { get; set; }
+    private string _filePath;
 
     public JsonContactRepository(string jsonFilePath)
     {
-        filePath = jsonFilePath;
+        _filePath = jsonFilePath;
     }
 
 
-    public List<Contact> GetAll()
+    public List<Contact>? GetAll()
     {
-        string jsonString = File.ReadAllText(filePath);
+        string jsonString = File.ReadAllText(_filePath);
+        //TODO: CHeck if file empty
         return JsonSerializer.Deserialize<List<Contact>>(jsonString);
 
     }
 
-    public Contact? GetContactById(int id)
+    public Contact? GetContactById(string id)
     {
         List<Contact>? contacts = GetAll();
         if (contacts != null)
@@ -35,10 +36,10 @@ public class JsonContactRepository : IContactRepository
         List<Contact> contacts = GetAll();
         contacts.Add(contact);
         string jsonString = JsonSerializer.Serialize(contacts);
-        File.WriteAllText(filePath, jsonString);
+        File.WriteAllText(_filePath, jsonString);
 
     }
-    public void Remove(int id)
+    public void Remove(string id)
     {
 
     }

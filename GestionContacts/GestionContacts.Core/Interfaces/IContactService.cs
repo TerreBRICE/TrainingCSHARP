@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 
 namespace GestionContacts.Core.Interfaces
 {
-    interface IContactService
+    public interface IContactService
     {
         int CountTotal();
 
         int CountFromCity(string city);
         int CountIsAdult();
         Contact? ShowContactById(int id);
-        void RemoveContact(Contact contact);
-        void AddContact(Contact contact);
+        void Remove(Contact contact);
+        void Add(Contact contact);
+        List<Contact>? GetAll();
+
     }
 }

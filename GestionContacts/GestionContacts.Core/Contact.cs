@@ -2,7 +2,7 @@
 {
     public class Contact
     {
-        public int Id{ get; set; }
+        public string Id{ get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int Age { get; set; }
@@ -14,9 +14,9 @@
             }
         }
 
-        public Contact(int id, string firstName, string lastName, int age, string city)
+        public Contact(string firstName, string lastName, int age, string city)
         {
-            Id = id;
+            Id = Guid.NewGuid().ToString();
             FirstName = firstName;
             LastName = lastName;
             Age = age;

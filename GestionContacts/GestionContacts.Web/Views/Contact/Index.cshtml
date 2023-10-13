@@ -1,0 +1,20 @@
+﻿@model GestionContacts.Web.ViewModels.ListContactViewModel
+@{
+    ViewData["Title"] = "Contact Page";
+
+}
+
+<div class="text-center">
+    <h1 class="display-4">@Model.Title</h1>
+
+    @foreach (var item in Model.Contacts)
+    {
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">@item.FirstName @item.LastName</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">Age : @item.Age</h6>
+                <h6 class="card-subtitle mb-2 text-body-secondary">From : @item.City</h6>
+            </div>
+        </div>
+    }
+</div>
