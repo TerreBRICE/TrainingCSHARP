@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MyTasksAction.Core.Entities;
+using System.Linq.Expressions;
 
 namespace MyTasksAction.Core.Interfaces;
 
 public interface ITaskActionRepository
 {
-    List<Task> GetAllAsync();
-    void AddAsync(Task task);
+    List<TaskAction> GetByAsync(Expression<Func<TaskAction,bool>> expression);
+    void AddAsync(TaskAction taskAction);
 
-    void UpdateAsync(Task task);
+    void UpdateAsync(TaskAction taskAction);
 
-    Task DeleteAsync(Task task);
+    Task DeleteAsync(TaskAction taskAction);
 }

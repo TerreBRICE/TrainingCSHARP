@@ -1,47 +1,54 @@
-﻿using MyTasksAction.Core.Interfaces;
+﻿using MyTasksAction.Core.Entities;
+using MyTasksAction.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyTasksAction.Core.Services
+namespace MyTasksAction.Core.Services;
+
+public class TaskActionService : ITaskActionService
 {
-    internal class TaskActionService : ITaskActionService
+
+    private readonly ITaskActionRepository _taskActionRepository;
+
+    public TaskActionService(ITaskActionRepository taskActionRepository)
     {
-        public void AddTaskAction(Task task)
-        {
-            throw new NotImplementedException();
-        }
+        _taskActionRepository = taskActionRepository;
+    }
 
-        public List<Task> GetAssignedTasksAction(string userId)
-        {
-            throw new NotImplementedException();
-        }
+    public void Add(TaskAction taskAction)
+    {
+        throw new NotImplementedException();
+    }
+/*    public List<TaskAction> GetDashboardTask(string userId)
+    {
+        
+    }*/
 
-        public List<Task> GetMyTasksAction(string userId)
-        {
-            throw new NotImplementedException();
-        }
+    private List<TaskAction> GetMyTasksAction(string userId)
+    {
+        return _taskActionRepository.GetByAsync(taskAction => taskAction.AssignTo == userId);
+    }
 
-        public Task GetTaskActionById(string id)
-        {
-            throw new NotImplementedException();
-        }
+    private List<TaskAction> GetAssignTasksAction(string userId)
+    {
+        return _taskActionRepository.GetByAsync(taskAction => taskAction.AssignTo == userId);
+    }
 
-        public List<Task> GetTasksAction(string userId)
-        {
-            throw new NotImplementedException();
-        }
+    public List<TaskAction> GetTasksAction(string userId)
+    {
+        throw new NotImplementedException();
+    }
 
-        public void RemoveTaskAction(Task task)
-        {
-            throw new NotImplementedException();
-        }
+    public void Remove(TaskAction taskAction)
+    {
+        throw new NotImplementedException();
+    }
 
-        public void UpdateTaskAction(Task task)
-        {
-            throw new NotImplementedException();
-        }
+    public void Update(TaskAction taskAction)
+    {
+        throw new NotImplementedException();
     }
 }
