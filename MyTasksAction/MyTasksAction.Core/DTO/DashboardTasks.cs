@@ -9,8 +9,8 @@ namespace MyTasksAction.Core.DTO;
 
 public class DashboardTasks
 {
-    List<TaskAction> MyTasksAction { get; set; }
-    List<TaskAction> AssignTasksAction { get; set; }
+    public List<TaskAction> MyTasksAction { get; set; }
+    public List<TaskAction> AssignTasksAction { get; set; }
 
     public DashboardTasks(List<TaskAction> myTasksAction, List<TaskAction> assignTasksAction)
     {

@@ -1,4 +1,5 @@
-﻿using MyTasksAction.Core.Entities;
+﻿using MyTasksAction.Core.DTO;
+using MyTasksAction.Core.Entities;
 using MyTasksAction.Core.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -18,37 +19,41 @@ public class TaskActionService : ITaskActionService
         _taskActionRepository = taskActionRepository;
     }
 
+    public DashboardTasks GetDashboard(string userId)
+    {
+        return new DashboardTasks(GetMyTasksAction(userId), GetAssignedTasksAction(userId) );
+
+    }
+
+    private List<TaskAction>  GetMyTasksAction(string userId)
+    {
+        return _taskActionRepository.GetByAsync(taskAction => taskAction.AssignTo == userId);
+    }
+
+    private List<TaskAction> GetAssignedTasksAction(string userId)
+    {
+        return _taskActionRepository.GetByAsync(taskAction => taskAction.AssignBy == userId);
+    }
+
+
+    public TaskAction Show(TaskAction taskAction)
+    {
+       return _taskActionRepository.ShowAsync(taskAction);    
+    }
+
     public void Add(TaskAction taskAction)
     {
-        throw new NotImplementedException();
-    }
-/*    public List<TaskAction> GetDashboardTask(string userId)
-    {
-        
-    }*/
-
-    private List<TaskAction> GetMyTasksAction(string userId)
-    {
-        return _taskActionRepository.GetByAsync(taskAction => taskAction.AssignTo == userId);
+        _taskActionRepository.AddAsync(taskAction);
     }
 
-    private List<TaskAction> GetAssignTasksAction(string userId)
-    {
-        return _taskActionRepository.GetByAsync(taskAction => taskAction.AssignTo == userId);
-    }
-
-    public List<TaskAction> GetTasksAction(string userId)
-    {
-        throw new NotImplementedException();
-    }
 
     public void Remove(TaskAction taskAction)
     {
-        throw new NotImplementedException();
+        _taskActionRepository.DeleteAsync(taskAction);
     }
 
     public void Update(TaskAction taskAction)
     {
-        throw new NotImplementedException();
+        _taskActionRepository.UpdateAsync(taskAction);
     }
 }

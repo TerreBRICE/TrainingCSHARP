@@ -29,7 +29,17 @@ namespace MyTasksAction.Infrastructure
             return applicationDbContext.TaskAction.Where(expression).ToList();
         }
 
+        public TaskAction ShowAsync(TaskAction taskAction)
+        {
+            throw new NotImplementedException();
+        }
+
         public void UpdateAsync(TaskAction taskAction)
+        {
+            throw new NotImplementedException();
+        }
+
+        void ITaskActionRepository.DeleteAsync(TaskAction taskAction)
         {
             throw new NotImplementedException();
         }
