@@ -4,10 +4,10 @@ namespace MyTasksAction.Web.ViewModels;
 
 public class DashboardTaskViewModel
 {
-    List<TaskAction> MyTasksAction { get; set; }
-    List<TaskAction> AssignTasksAction { get; set; }
+    public List<TaskActionViewModel> MyTasksAction { get; set; }
+    public List<TaskActionViewModel> AssignTasksAction { get; set; }
 
-    public DashboardTaskViewModel(List<TaskAction> myTasksAction, List<TaskAction> assignTasksAction)
+    public DashboardTaskViewModel(List<TaskActionViewModel> myTasksAction, List<TaskActionViewModel> assignTasksAction)
     {
         MyTasksAction = myTasksAction;
         AssignTasksAction = assignTasksAction;

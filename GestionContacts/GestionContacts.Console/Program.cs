@@ -4,36 +4,39 @@ using GestionContacts.Core.Services;
 using GestionContacts.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 internal class Program
 {
+    private static IContactService? _contactService;
 
-
-    private static string jsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "_data.json");
-    private static readonly JsonContactRepository _jsonContactRepository = new JsonContactRepository(jsonFilePath);
-    private static readonly ContactService contactService = new ContactService(_jsonContactRepository);
+    public Program(IContactService contactService)
+    {
+        _contactService = contactService;
+    }
 
     private static void Main(string[] args)
     {
+        using var host = CreateHostBuilder(args).Build();
+        var program = host.Services.GetRequiredService<Program>();
+        program.Run();
+    }
 
-        //    var serviceProvider = new ServiceCollection()
-        //.AddLogging()
-        //.AddScoped<IContactService, ContactService>()
-        //.AddScoped<IContactRepository, JsonContactRepository>((_) => new JsonContactRepository(configuration["JsonRepository:filePath"]))
-        //.BuildServiceProvider();
+    private static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+            .ConfigureServices((hostContext, services) =>
+            {
+                var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "_data.json");
+                services.AddTransient<IContactRepository>(_ => new JsonContactRepository(filePath));
+                services.AddTransient<IContactService, ContactService>();
+                services.AddTransient<Program>();
+            });
 
-        //       configure console logging
-        //       serviceProvider
-        //           .GetService<ILoggerFactory>()
-        //            .AddConsole(LogLevel.Debug);
 
-        //var logger = serviceProvider.GetService<ILoggerFactory>()
-        //    .CreateLogger<Program>();
-        //logger.LogDebug("Starting application");
-
-        Console.WriteLine(jsonFilePath);
-        Console.WriteLine("Hi, what do you want to do with your contacts ? Show | Add ");
+    private  void Run()
+    {
+        Console.WriteLine("Hi, what do you want to do with your contacts? Show | Add ");
 
         var input = Console.ReadLine();
 
@@ -46,7 +49,6 @@ internal class Program
             case "Show":
                 ShowAll();
                 break;
-
         }
     }
 
@@ -60,7 +62,7 @@ internal class Program
         var city = AskStringValue("City");
 
         Contact newContact = new Contact(firstName, lastName, age, city);
-        contactService.Add(newContact);
+        _contactService.Add(newContact);
 
         Console.WriteLine("-----CREATION-------");
 
@@ -76,9 +78,9 @@ internal class Program
     {
         Console.WriteLine("Showing all contacts ...");
 
-        List<Contact>? contacts = _jsonContactRepository.GetAll();
+        List<Contact>? contacts = _contactService.GetAll();
 
-        int totalContacts = contactService.CountTotal();
+        int totalContacts = _contactService.CountTotal();
 
         Console.WriteLine("---------  You Have " + totalContacts + " contacts  ---------");
         foreach (Contact contact in contacts)
@@ -96,6 +98,7 @@ internal class Program
     {
         Console.WriteLine("You entered an invalid " + value);
     }
+
     private static string AskStringValue(string question)
     {
         Console.WriteLine(question + " :");

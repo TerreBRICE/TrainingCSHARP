@@ -9,7 +9,7 @@ namespace MyTasksAction.UnitTests
     [TestClass]
     public class UnitTest
     {
-        static TaskUser user = new TaskUser("Michelle");
+        static ApplicationUser user = new ApplicationUser("Michelle");
         static ITaskActionRepository localTaskActionRepository = new LocalTaskActionRepository(user);
         TaskActionService taskActionService = new TaskActionService(localTaskActionRepository);
 
@@ -27,7 +27,7 @@ namespace MyTasksAction.UnitTests
         [TestMethod]
         public void When_I_Assign_Task_To_A_User_I_Should_See_This_Task_In_My_Askings_And_User_Should_See_This_Task_In_My_Tasks()
         {
-            TaskAction newTaskAction = new TaskAction("Tâche 6", "Tâche 6 description", null, null, new TaskUser("Elise").Id, user.Id,"EN COURS");
+            TaskAction newTaskAction = new TaskAction("Tâche 6", "Tâche 6 description", null, null, new ApplicationUser("Elise").Id, user.Id,"EN COURS");
    
             taskActionService.Add(newTaskAction);
 

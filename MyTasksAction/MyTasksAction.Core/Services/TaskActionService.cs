@@ -32,7 +32,7 @@ public class TaskActionService : ITaskActionService
 
     private List<TaskAction> GetAssignedTasksAction(string userId)
     {
-        return _taskActionRepository.GetByAsync(taskAction => taskAction.AssignBy == userId);
+        return _taskActionRepository.GetByAsync(taskAction => taskAction.AuthorId == userId);
     }
 
 

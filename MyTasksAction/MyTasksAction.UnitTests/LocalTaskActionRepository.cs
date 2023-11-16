@@ -8,16 +8,16 @@ namespace MyTasksAction.UnitTests;
 
 public class LocalTaskActionRepository : ITaskActionRepository
 {
-    static TaskUser user1 = new TaskUser("Dorian");
-    static TaskUser user2 = new TaskUser("Sandrine");
+    static ApplicationUser user1 = new ApplicationUser("Dorian");
+    static ApplicationUser user2 = new ApplicationUser("Sandrine");
     List<TaskAction> tasksAction;
 
-    public LocalTaskActionRepository(TaskUser user)
+    public LocalTaskActionRepository(ApplicationUser user)
     {
         generateTasksAction(user);
     }
 
-    public void generateTasksAction(TaskUser user)
+    public void generateTasksAction(ApplicationUser user)
     {
         tasksAction = new List<TaskAction>()
         {
