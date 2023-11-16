@@ -10,9 +10,9 @@ public class JsonContactRepository : IContactRepository
 {
     private string _filePath;
 
-    public JsonContactRepository(string jsonFilePath)
+    public JsonContactRepository(JsonRepositoryOptions options)
     {
-        _filePath = jsonFilePath;
+        _filePath =  Path.Combine(AppDomain.CurrentDomain.BaseDirectory,options.filePath);;
     }
 
 
