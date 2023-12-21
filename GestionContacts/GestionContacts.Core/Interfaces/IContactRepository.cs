@@ -5,7 +5,9 @@
         List<Contact>? GetAll();
 
         Contact? GetContactById(string id);
-        void Remove(string id);
+        void Remove(Contact contact);
+
+        void Edit(string id, Contact updatedContact);
 
         void Add(Contact contact);
     }

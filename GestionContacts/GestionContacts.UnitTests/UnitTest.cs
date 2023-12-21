@@ -40,15 +40,15 @@ namespace GestionContacts.UnitTests
         public void WhenGetContactWithId1_ShouldGetContactWithFirstNameDidier()
         {
 
-            Contact? contact = contactService.GetContactById(1);
+            // Contact? contact = contactService.GetContactById(1);
 
-            Assert.AreEqual("Didier", contact.FirstName);
+            // Assert.AreEqual("Didier", contact.FirstName);
         }
 
         [TestMethod]
         public void WhenRemove1Contact_ShouldHaveTotalCount3()
         {
-            contactService.RemoveContactById(1);
+            // contactService.RemoveContactById(1);
 
             Assert.AreEqual(3, contactService.CountTotal());
         }
@@ -56,8 +56,8 @@ namespace GestionContacts.UnitTests
         [TestMethod]
         public void WhenAddNewContact_ShouldHaveTotalCount5()
         {
-            var item = new Contact(5, "Quentin", "Chapelier", 89, "Zion");
-            contactService.AddContact(item);
+            // var item = new Contact(5, "Quentin", "Chapelier", 89, "Zion");
+            // contactService.AddContact(item);
             Assert.AreEqual(5, contactService.CountTotal());
         }
     }

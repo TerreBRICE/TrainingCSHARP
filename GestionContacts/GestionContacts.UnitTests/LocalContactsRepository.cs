@@ -8,10 +8,10 @@ public class LocalContactsRepository: IContactRepository
 
     public List<Contact> Contacts = new List<Contact>()
     {
-        new Contact(1,"Didier", "Costa",24, "Rennes"),
-        new Contact(2, "Dorian", "Molotov",14, "Paris"),
-        new Contact(3, "Paul", "Soyer",48, "Grenoble"),
-        new Contact(4, "Eloïse", "Fortin",25, "Rennes"),
+        new Contact("Didier", "Costa",24, "Rennes"),
+        new Contact( "Dorian", "Molotov",14, "Paris"),
+        new Contact( "Paul", "Soyer",48, "Grenoble"),
+        new Contact( "Eloïse", "Fortin",25, "Rennes"),
     };
 
 
@@ -20,12 +20,27 @@ public class LocalContactsRepository: IContactRepository
         return Contacts;
     }
 
-    public Contact? GetContactById(int id)
+    public Contact? GetContactById(string id)
     {
-       return Contacts.Find(c => c.Id == id);
+        throw new NotImplementedException();
     }
 
-    public void Remove(int id)
+    public void Remove(Contact contact)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Edit(string id, Contact updatedContact)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Contact? GetContactById(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Remove(string id)
     {
         Contact? item = Contacts.Find(c => c.Id == id);
         Contacts.Remove(item);

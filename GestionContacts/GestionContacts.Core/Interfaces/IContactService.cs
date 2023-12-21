@@ -15,6 +15,7 @@ namespace GestionContacts.Core.Interfaces
         Contact? ShowContactById(int id);
         void Remove(Contact contact);
         void Add(Contact contact);
+        void Edit(string id, Contact contact);
         List<Contact>? GetAll();
 
     }

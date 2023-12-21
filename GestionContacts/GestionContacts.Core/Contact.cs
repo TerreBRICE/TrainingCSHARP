@@ -22,6 +22,11 @@
             Age = age;
             City = city;
         }
+
+        public Contact()
+        {
+            
+        }
         
     }
 }

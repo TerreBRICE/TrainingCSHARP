@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestionContacts.Web", "Gest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestionContacts.Api", "GestionContacts.Api\GestionContacts.Api.csproj", "{84086944-123F-44F0-B212-4F779D6D79BF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestionContacts.Wpf", "GestionContacts.Wpf\GestionContacts.Wpf.csproj", "{60323441-FDDA-44EE-98BE-2F12893068D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{84086944-123F-44F0-B212-4F779D6D79BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84086944-123F-44F0-B212-4F779D6D79BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84086944-123F-44F0-B212-4F779D6D79BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60323441-FDDA-44EE-98BE-2F12893068D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60323441-FDDA-44EE-98BE-2F12893068D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60323441-FDDA-44EE-98BE-2F12893068D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60323441-FDDA-44EE-98BE-2F12893068D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,6 +67,7 @@ Global
 		{10437B93-4FE9-434E-9BB9-12FF54D8FD10} = {6A5FCE26-C9F7-49F9-89FA-4A3645A3B3A9}
 		{4B1FC39C-A573-4A04-AFCE-A01E50326305} = {6A5FCE26-C9F7-49F9-89FA-4A3645A3B3A9}
 		{84086944-123F-44F0-B212-4F779D6D79BF} = {6A5FCE26-C9F7-49F9-89FA-4A3645A3B3A9}
+		{60323441-FDDA-44EE-98BE-2F12893068D9} = {6A5FCE26-C9F7-49F9-89FA-4A3645A3B3A9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {25134D64-48C8-43D3-A013-57927A7ECFFF}

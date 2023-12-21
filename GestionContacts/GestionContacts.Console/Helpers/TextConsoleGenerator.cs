@@ -1,4 +1,5 @@
-﻿namespace GestionContacts.Console.Helpers;
+﻿using System;
+namespace GestionContacts.Console.Helpers;
 
 public class TextConsoleGenerator
 {

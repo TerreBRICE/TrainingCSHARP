@@ -9,8 +9,16 @@ namespace GestionContacts.IntegrationTests
     {
         private static string jsonFilePath = @"C:\Users\lebuh\Desktop\_db.json";
 
-        private readonly JsonContactRepository _jsonContactRepository = new JsonContactRepository(jsonFilePath);
+        private readonly JsonContactRepository _jsonContactRepository;
+        private readonly JsonRepositoryOptions _options;
 
+        [TestInitialize]
+        public void InitTest()
+        {
+            _options.filePath = jsonFilePath;
+            var jsonRepositoryOptions = new JsonContactRepository(_options);
+
+        }
 
         [TestMethod]
         public void WhenGetAllContacts_ShouldGet1Contact()
@@ -23,7 +31,7 @@ namespace GestionContacts.IntegrationTests
         [TestMethod]
         public void WhenGetContactById_ShouldGetContactFirstNameDorian()
         {
-            Contact contact = _jsonContactRepository.GetContactById(1);
+            Contact contact = _jsonContactRepository.GetContactById("1");
 
             Assert.AreEqual("Dorian", contact.FirstName);
         }
@@ -36,13 +44,10 @@ namespace GestionContacts.IntegrationTests
             string jsonString = JsonSerializer.Serialize(emptyContactsList);
             File.WriteAllText(tempFilePath, jsonString);
 
-            JsonContactRepository _tempJsonContactRepository = new JsonContactRepository(tempFilePath);
+            Contact newContact = new Contact( "Didier", "Costa", 24, "Rennes");
+            _jsonContactRepository.Add(newContact);
 
-            Contact newContact = new Contact(1, "Didier", "Costa", 24, "Rennes");
-            _tempJsonContactRepository.Add(newContact);
-
-            Assert.AreEqual(1, _tempJsonContactRepository.GetAll().Count);
-
+            Assert.AreEqual(1, _jsonContactRepository.GetAll().Count);
         }
-}
+    }
 }

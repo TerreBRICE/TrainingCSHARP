@@ -31,6 +31,12 @@ public class JsonContactRepository : IContactRepository
             return contacts.Find(c => c.Id == id);
         return null;
     }
+
+    public void Edit(string id, Contact updatedContact)
+    {
+        throw new NotImplementedException();
+    }
+
     public void Add(Contact contact)
     {
         List<Contact> contacts = GetAll();
@@ -39,9 +45,9 @@ public class JsonContactRepository : IContactRepository
         File.WriteAllText(_filePath, jsonString);
 
     }
-    public void Remove(string id)
+    public void Remove(Contact contact)
     {
-
+        
     }
 
 

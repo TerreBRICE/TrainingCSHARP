@@ -12,6 +12,7 @@ internal class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+
         // Add services to the container.
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
@@ -21,14 +22,16 @@ internal class Program
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json")
             .Build();
-
+        
+        var jsonRepositoryOptions = configuration.GetSection(JsonRepositoryOptions.Key).Get<JsonRepositoryOptions>();
+        
         builder
             .Services
             .AddScoped<IContactService, ContactService>();
 
         builder
             .Services
-            .AddScoped<IContactRepository, JsonContactRepository>((_) => new JsonContactRepository(configuration["JsonRepository:filePath"]));
+            .AddScoped<IContactRepository, JsonContactRepository>((_) => new JsonContactRepository(jsonRepositoryOptions));
 
         var app = builder.Build();
         // Configure the HTTP request pipeline.
@@ -43,20 +46,19 @@ internal class Program
 
         app.MapGet("/contacts", (IContactService contactService) =>
             {
-
                 List<Contact>? contacts = contactService.GetAll();
                 return contacts.ToDTO();
             })
             .WithName("GetContacts");
 
         app.MapPost("/contacts", (IContactService contactService, ContactDTO contactDTO) =>
-        {
-            Contact newContact = ContactMapping.MappingIntoContact(contactDTO);
-            contactService.Add(newContact);
+            {
+                Contact newContact = ContactMapping.MappingIntoContact(contactDTO);
+                contactService.Add(newContact);
 
-            return Results.Created($"/contacts/{newContact.Id}", newContact);
-        })
-        .WithName("PostContact");
+                return Results.Created($"/contacts/{newContact.Id}", newContact);
+            })
+            .WithName("PostContact");
 
         app.Run();
     }

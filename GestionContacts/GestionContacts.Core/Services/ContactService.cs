@@ -9,6 +9,7 @@ namespace GestionContacts.Core.Services;
 
 public class ContactService: IContactService
 {
+    
 
     private readonly IContactRepository _contactRepository;
 
@@ -67,6 +68,11 @@ public class ContactService: IContactService
 
     public void Remove(Contact contact)
     {
-        throw new NotImplementedException();
+        _contactRepository.Remove(contact);
+    }
+    
+    public void Edit(string id, Contact contact)
+    {
+        _contactRepository.Edit(id, contact);
     }
 }

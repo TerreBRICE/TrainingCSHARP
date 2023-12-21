@@ -13,13 +13,15 @@ var configuration = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json")
     .Build();
 
+var jsonRepositoryOptions = configuration.GetSection(JsonRepositoryOptions.Key).Get<JsonRepositoryOptions>();
+
 builder
     .Services
     .AddScoped<IContactService,ContactService>();
 
 builder
     .Services
-    .AddScoped<IContactRepository,JsonContactRepository>((_) => new JsonContactRepository(configuration["JsonRepository:filePath"]));
+    .AddScoped<IContactRepository,JsonContactRepository>((_) => new JsonContactRepository(jsonRepositoryOptions));
 
 var app = builder.Build();
 

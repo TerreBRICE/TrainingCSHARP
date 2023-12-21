@@ -20,9 +20,8 @@ public class DbInitializer
 
     public static async Task CreateResourceUser(IServiceProvider serviceProvider, ApplicationUser applicationUser)
     {
-        var userManager = serviceProvider.GetRequiredService<>()
+        // var userManager = serviceProvider.GetRequiredService<>()
       
     }
 }
 
-}
